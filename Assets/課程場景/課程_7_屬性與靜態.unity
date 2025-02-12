@@ -531,6 +531,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   class_7_2: {fileID: 1993024468}
+  slimeGreen: {fileID: 1316442951}
+  slimeBlue: {fileID: 1684077139}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
