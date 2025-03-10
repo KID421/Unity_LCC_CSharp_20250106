@@ -24,6 +24,11 @@ namespace KID.Class_15
         public void Use();
     }
 
+    public interface IDestroy
+    {
+        public void Destroy();
+    }
+
     // 步驟 2.
     // C# 單一繼承，多重實作介面
     public class Weapon : IUse
@@ -35,19 +40,29 @@ namespace KID.Class_15
         }
     }
 
-    public class Potion : IUse
+    public class Potion : IUse, IDestroy
     {
+        public void Destroy()
+        {
+            LogSystem.LogWithColor("藥水使用完畢，刪除", "#f11");
+        }
+
         public void Use()
         {
             LogSystem.LogWithColor("使用藥水，恢復魔力", "#a3f");
         }
     }
 
-    public class Chest : IUse
+    public class Chest : IUse, IDestroy
     {
+        public void Destroy()
+        {
+            LogSystem.LogWithColor("寶箱使用完畢，刪除", "#f11");
+        }
+
         public void Use()
         {
-            LogSystem.LogWithColor("使用寶相，獲得隨機道具", "#af3");
+            LogSystem.LogWithColor("使用寶箱，獲得隨機道具", "#af3");
         }
     }
 }
