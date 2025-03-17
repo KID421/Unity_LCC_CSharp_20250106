@@ -146,11 +146,41 @@ namespace KID.Class_16
             LogSortedSet<int>(counts1);
             #endregion
 
+            #region 字典
             Dictionary<int, string> deck = new Dictionary<int, string>()
             {
                 {10, "真紅眼黑龍" }, {3 , "落穴"}, {1, "黑魔導"}
             };
             LogDictionary<int, string>(deck);
+            deck.Add(7, "死者甦醒");
+            LogSystem.LogWithColor($"是否有編號 3 資料：{deck.ContainsKey(3)}", "#f33");
+            LogSystem.LogWithColor($"是否有羽毛掃資料：{deck.ContainsValue("羽毛掃")}", "#f33");
+            #endregion
+
+            // 保持排序並且不會有重複的鍵
+            SortedList<string, int> board = new SortedList<string, int>();
+            board.Add("KID", 80);
+            board.Add("Kevin", 85);
+            board.Add("Cherry", 85);
+            // board.Add("Cherry", 77);             // 重複的鍵導致錯誤
+            LogSortedList<string, int>(board);
+
+            // 保持排序並且不會有重複鍵的字典
+            SortedDictionary<string, int> scores = new SortedDictionary<string, int>();
+            scores.Add("KID", 80);
+            scores.Add("Kevin", 85);
+            scores.Add("Cherry", 85);
+            // scores.Add("Cherry", 70);            // 重複的鍵導致錯誤
+            LogSortedDictionary<string, int>(scores);
+
+            // SortedList 與 SortedDictionary 的差異
+            // 1. SortedList 是使用陣列方式儲存，比較省記憶體空間
+            // 2. SortedDictionary 是使用樹狀結構方式儲存，比較占記憶體空間
+            // 3. SortedList 可以使用索引值存取 [0]
+            LogSystem.LogWithColor($"排行榜第一筆：{board.Keys[0]}", "#f93");
+            // LogSystem.LogWithColor($"排行榜第一筆：{scores.Keys[0]}", "#f93");
+            // 4. SortedList 大量資料增減時比較占記憶體
+            // 如果資料不需要頻繁的增減建議使用 SortedList 反之建議使用 SortedDictionary
         }
 
         private void LogStack<T>(Stack<T> stack)
@@ -192,12 +222,30 @@ namespace KID.Class_16
 
         private void LogDictionary<T, U>(Dictionary<T, U> dict)
         {
-            foreach(var item in dict)
+            foreach (var item in dict)
             {
                 LogSystem.LogWithColor($"卡牌的編號：{item.Key}", "#3f3");
                 LogSystem.LogWithColor($"卡牌的名稱：{item.Value}", "#3f3");
             }
             LogSystem.LogWithColor("-----------------", "#faa");
+        }
+
+        private void LogSortedList<T, U>(SortedList<T, U> list)
+        {
+            foreach (var item in list)
+            {
+                LogSystem.LogWithColor($"{item.Key} 的分數 {item.Value}", "#77f");
+            }
+            LogSystem.LogWithColor("----------", "#fff");
+        }
+
+        private void LogSortedDictionary<T, U>(SortedDictionary<T, U> dict)
+        {
+            foreach(var item in dict)
+            {
+                LogSystem.LogWithColor($"{item.Key} 的分數 {item.Value}", "#77f");
+            }
+            LogSystem.LogWithColor("----------", "#fff");
         }
     }
 }
