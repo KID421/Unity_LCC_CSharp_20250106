@@ -89,6 +89,7 @@ namespace KID.Class_16
             LogStack<string>(enemys);
             #endregion
 
+            #region 佇列
             // Queue 佇列：先進先出，先放進來的資料先被拿出來，回合遊戲的攻擊順序
             Queue<string> player = new Queue<string>();
             player.Enqueue("盜賊");
@@ -101,6 +102,55 @@ namespace KID.Class_16
             // 拿東西並刪除，與堆疊的 Pop 相同
             LogSystem.LogWithColor(player.Dequeue(), "#f33");
             LogQueue<string>(player);
+            #endregion
+
+            #region 鏈結串列
+            // LinkefList 鏈結串列
+            string[] skillsArray = new string[] { "火球", "冰錐" };
+            LinkedList<string> skills = new LinkedList<string>(skillsArray);
+            LogLinkedList<string>(skills);
+            skills.AddLast("落雷");
+            LogLinkedList<string>(skills);
+            skills.AddFirst("岩石");
+            LogLinkedList<string>(skills);
+
+            // 在火球後面添加一個毒霧
+            LinkedListNode<string> skillFire = skills.Find("火球");
+            skills.AddAfter(skillFire, "毒霧");
+            // 在火球前面添加一個瞬移
+            skills.AddBefore(skillFire, "瞬移");
+            LogLinkedList<string>(skills);
+            #endregion
+
+            #region 排序集合
+            // 自動排序並且不重複的集合 (由小到大排序)
+            SortedSet<int> counts = new SortedSet<int> { 9, 2, 80, 1 };
+            LogSortedSet<int>(counts);
+            counts.Add(77);
+            counts.Add(123);
+            counts.Add(9);
+            LogSortedSet<int>(counts);
+            LogSystem.LogWithColor($"最大：{counts.Max}", "#f33");
+            LogSystem.LogWithColor($"最小：{counts.Min}", "#f33");
+
+            SortedSet<int> lv = new SortedSet<int> { 7, 3, 75, 123, 5, 80 };
+            // 交集與差集
+            counts.IntersectWith(lv);
+            LogSortedSet<int>(counts);      // 80, 123
+            counts.ExceptWith(lv);          // 刪除 counts 內的 { 7, 3, 75, 123, 5, 80 }
+            LogSortedSet<int>(counts);
+
+            SortedSet<int> counts1 = new SortedSet<int> { 9, 2, 80, 1 };
+            SortedSet<int> counts2 = new SortedSet<int> { 9, 2 };
+            counts1.ExceptWith(counts2);
+            LogSortedSet<int>(counts1);
+            #endregion
+
+            Dictionary<int, string> deck = new Dictionary<int, string>()
+            {
+                {10, "真紅眼黑龍" }, {3 , "落穴"}, {1, "黑魔導"}
+            };
+            LogDictionary<int, string>(deck);
         }
 
         private void LogStack<T>(Stack<T> stack)
@@ -119,6 +169,35 @@ namespace KID.Class_16
             {
                 LogSystem.LogWithColor($"佇列資料：{item}", "#7f7");
             }
+        }
+
+        private void LogLinkedList<T>(LinkedList<T> linkedList)
+        {
+            foreach (var item in linkedList)
+            {
+                LogSystem.LogWithColor(item, "#fa3");
+            }
+
+            LogSystem.LogWithColor("----------", "#fff");
+        }
+
+        private void LogSortedSet<T>(SortedSet<T> set)
+        {
+            foreach (var item in set)
+            {
+                LogSystem.LogWithColor(item, "#3f3");
+            }
+            LogSystem.LogWithColor("-------", "#fff");
+        }
+
+        private void LogDictionary<T, U>(Dictionary<T, U> dict)
+        {
+            foreach(var item in dict)
+            {
+                LogSystem.LogWithColor($"卡牌的編號：{item.Key}", "#3f3");
+                LogSystem.LogWithColor($"卡牌的名稱：{item.Value}", "#3f3");
+            }
+            LogSystem.LogWithColor("-----------------", "#faa");
         }
     }
 }
