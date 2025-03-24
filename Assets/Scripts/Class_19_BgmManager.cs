@@ -17,6 +17,18 @@ namespace KID.Class_19.Event
             // 事件：輸入 += 可以使用 Tab 自動完成 > 命名方法後 > Enter 完成
             class_19_event.onDead += ChangeBgm;
             class_19_event.onDeadAction += ChangeBgmViaHp;
+            class_19_event.onEvent += ChangeBgmEvent;
+            class_19_event.onEventWithHp += ChangeBgnEventWithHp;
+        }
+
+        private void ChangeBgnEventWithHp(object sender, float e)
+        {
+            LogSystem.LogWithColor($"發送事件者：{sender}, 參數：{e}", "#ff3");
+        }
+
+        private void ChangeBgmEvent(object sender, System.EventArgs e)
+        {
+            LogSystem.LogWithColor($"發送事件者：{sender}, 參數：{e}", "#ff3");
         }
 
         private void ChangeBgmViaHp(string arg1, float arg2)
